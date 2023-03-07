@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://code.corp.indeed.com/iyadav/argocd-app-config-main.git
+    repoURL: https://github.com/inder128/argocd-app-config-main.git
     targetRevision: main
     path: dev
   destination: 
