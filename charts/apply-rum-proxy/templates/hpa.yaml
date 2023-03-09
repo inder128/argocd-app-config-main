@@ -11,8 +11,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: indeedapply.apply-rum-proxy.default
-  minReplicas: 4
-  maxReplicas: 1
+  minReplicas: 1
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
