@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: indeedapply.apply-rum-proxy.default
@@ -17,5 +17,6 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: 60
-        
+        target:
+          type: Utilization
+          averageUtilization: 50
