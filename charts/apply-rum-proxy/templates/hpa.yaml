@@ -11,7 +11,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: indeedapply.apply-rum-proxy.default
-  minReplicas: 5
+  minReplicas: 2
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -19,4 +19,4 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 50
+          averageUtilization: 70
