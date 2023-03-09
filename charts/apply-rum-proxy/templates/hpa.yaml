@@ -1,0 +1,21 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: indeedapply.apply-rum-proxy.default
+  labels:
+    apps.indeed.com/deployment-group-name: default
+    apps.indeed.com/product-group: indeedapply
+    apps.indeed.com/project: apply-rum-proxy
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: indeedapply.apply-rum-proxy.default
+  minReplicas: 4
+  maxReplicas: 1
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 60
+        
