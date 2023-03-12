@@ -2,7 +2,6 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: indeedapply.apply-rum-proxy.default
-  namespace: 'apply-rum-proxy--{{.Values.env}}'
   labels:
     apps.indeed.com/deployment-group-name: default
     apps.indeed.com/product-group: indeedapply
