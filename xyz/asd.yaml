@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       name: '{{name}}-hpa-policy-argocd-application'
-    spe:
+    spec:
       project: default
       source:
         repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
@@ -16,7 +16,7 @@ spec:
         targetRevision: main
       destination:
         namespace: default
-        name: in-cluster
+        name: '{{name}}'
       syncPolicy:
         automated:
           prune: true
