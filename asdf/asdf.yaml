@@ -16,13 +16,19 @@ spec:
       name: 'apply-rum-proxy--argocd-application'
     spec:
       destination:
-        name: 'in-cluster'
+        name: '{{name}}'
         namespace: 'apply-rum-proxy--prod'
       project: argo-cd-applications
       source:
         path: charts/hpa-policy
         repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
         targetRevision: main
+        helm:
+          valueFiles:
+            - values-{{values.env}}.yaml
+            - values-{{name}}.yaml
+          values: |
+            env: {{values.env}}
       syncPolicy:
         automated:
           prune: true
