@@ -4,21 +4,35 @@ kind: Application
 metadata:
   name: 'apply-rum-proxy--argocd-application--xyz'
 spec:
-  project: argo-cd-applications
-  source:
-    repoURL: https://github.com/inder128/argocd-app-config-main.git
-    targetRevision: main
-    path: charts/apply-rum-proxy
-    helm:
-      valueFiles:
-        - values-awscmhqa3.yaml
-  destination:
-    name: 'awscmhqa3'
-    namespace: 'argo-cd-general'
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: cluster.indeed.com/name
+              operator: "In"
+              values:
+                - awscmhqa3
+        values:
+          env: '{{metadata.labels.cluster.indeed.com/env}}'
+  template:
+    metadata:
+      name: 'apply-rum-proxy--argocd-application--{{name}}'
+    spec:
+      project: argo-cd-applications
+      source:
+        repoURL: https://github.com/inder128/argocd-app-config-main.git
+        targetRevision: main
+        path: charts/apply-rum-proxy
+        helm:
+          valueFiles:
+            - values-awscmhqa3.yaml
+      destination:
+        name: 'awscmhqa3'
+        namespace: 'argo-cd-general'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
       - ApplyOutOfSyncOnly=true
       - PrunePropagationPolicy=foreground
