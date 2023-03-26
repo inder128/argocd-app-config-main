@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       name: '{{name}}-hpa-policy-argocd-application'
-    spec:
+    spe:
       project: default
       source:
         repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
