@@ -5,13 +5,7 @@ metadata:
   name: indeedapply-hpa-policy-argocd-applicationset
 spec:
   generators:
-    - clusters:
-        selector:
-          matchExpressions:
-            - key: cluster.indeed.com/name
-              operator: "In"
-              values:
-                - awscmhqa3
+    - clusters: {}
   template:
     metadata:
       name: 'app-hpa-policy-argocd-application'
