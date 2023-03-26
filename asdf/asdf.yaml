@@ -1,23 +1,30 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: indeedapply-hpa-policy-argocd-applicationset
+  labels:
+    argocd.argoproj.io/instance: indeedapply-meta
+  name: apply-rum-proxy--argocd-applicationset
+  namespace: argo-cd-general
 spec:
   generators:
-    - clusters: {}
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: cluster.indeed.com/name
+              operator: In
+              values:
+                - awscmhqa3
   template:
     metadata:
-      name: 'app-hpa-policy-argocd-application'
+      name: 'apply-rum-proxy--argocd-application'
     spec:
-      project: argo-cd-applications
-      source:
-        repoURL: https://github.com/inder128/argocd-app-config-main.git
-        targetRevision: main
-        path: charts/hpa-policy
       destination:
         name: in-cluster
-        namespace: default
+        namespace: 'apply-rum-proxy--prod'
+      project: argo-cd-applications
+        path: charts/hpa-policy
+        repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
+        targetRevision: main
       syncPolicy:
         automated:
           prune: true
@@ -25,4 +32,3 @@ spec:
         syncOptions:
           - ApplyOutOfSyncOnly=true
           - PrunePropagationPolicy=foreground
-
