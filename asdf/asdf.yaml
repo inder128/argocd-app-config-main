@@ -14,7 +14,7 @@ spec:
                 - awscmhqa3
   template:
     metadata:
-      name: '{{app}}-hpa-policy-argocd-application'
+      name: 'app-hpa-policy-argocd-application'
     spec:
       project: argo-cd-applications
       source:
