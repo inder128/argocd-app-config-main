@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -8,27 +9,27 @@ spec:
         selector:
           matchExpressions:
             - key: cluster.indeed.com/name
-              operator: In
+              operator: "In"
               values:
                 - awscmhqa3
   template:
     metadata:
-      name: 'apply-rum-proxy--argocd-application'
+      name: 'apply-rum-proxy--argocd-application--{{name}}'
     spec:
-      destination:
-        name: in-cluster
-        namespace: 'apply-rum-proxy--prod'
-      project: argo-cd-applications
+      project: apply-rum-proxy
       source:
-        path: charts/hpa-policy
-        repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
-        targetRevision: HEAD
+        repoURL: https://github.com/inder128/argocd-app-config-main.git
+        targetRevision: main
+        path: charts/apply-rum-proxy
         helm:
           valueFiles:
             - values-{{values.env}}.yaml
             - values-{{name}}.yaml
           values: |
             env: {{values.env}}
+      destination:
+        name: '{{name}}'
+        namespace: 'apply-rum-proxy--prod'
       syncPolicy:
         automated:
           prune: true
