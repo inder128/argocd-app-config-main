@@ -4,7 +4,6 @@ metadata:
   labels:
     argocd.argoproj.io/instance: indeedapply-meta
   name: apply-rum-proxy--argocd-applicationset
-  namespace: argo-cd-general
 spec:
   generators:
     - clusters:
@@ -19,7 +18,7 @@ spec:
       name: 'apply-rum-proxy--argocd-application'
     spec:
       destination:
-        name: in-cluster
+        name: 'in-cluster'
         namespace: 'apply-rum-proxy--prod'
       project: argo-cd-applications
         path: charts/hpa-policy
