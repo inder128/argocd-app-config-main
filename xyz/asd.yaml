@@ -1,28 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: indeedapply-hpa-policy-argocd-applicationset
+  name: guestbook
 spec:
   generators:
-    - clusters: {}
+  - list:
+      elements:
+      - cluster: engineering-dev
+        url: https://kubernetes.default.svc
   template:
     metadata:
-      name: '{{name}}-hpa-policy-argocd-application'
+      name: '{{cluster}}-guestbook'
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
-        path: xyz
+        repoURL: https://github.com/inder128/argocd-app-config-main.git
         targetRevision: main
+        path: charts/hpa-policy
       destination:
+        server: '{{url}}'
         namespace: default
-        name: '{{name}}'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - ApplyOutOfSyncOnly=true
-          - PrunePropagationPolicy=foreground
-          
-          
