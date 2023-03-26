@@ -1,0 +1,44 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: indeedapply.apply-rum-proxy.deafult
+  namespace: 'apply-rum-proxy--{{.Values.env}}'
+  labels:
+    apps.indeed.com/deployment-group-name: default
+    apps.indeed.com/product-group: indeedapply
+    apps.indeed.com/project: apply-rum-proxy
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: indeedapply.apply-rum-proxy.deafult
+
+  minReplicas: {{.Values.autoscaling.minReplicas}}
+  maxReplicas: {{.Values.autoscaling.maxReplicas}}
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{.Values.autoscaling.targetAverageCPUUtilizationPercentage}}
+
+  behavior:
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 25
+          periodSeconds: 15
+        - type: Pods
+          value: {{.Values.autoscaling.scaleUp.pods}}
+          periodSeconds: 15
+      selectPolicy: Max
+      stabilizationWindowSeconds: 0
+
+    scaleDown:
+      policies:
+        - type: Pods
+          value: {{.Values.autoscaling.scaleDown.pods}}
+          periodSeconds: 300
+      stabilizationWindowSeconds: 600
