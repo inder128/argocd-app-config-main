@@ -34,5 +34,5 @@ spec:
           prune: true
           selfHeal: true
         syncOptions:
-      - ApplyOutOfSyncOnly=true
-      - PrunePropagationPolicy=foreground
+          - ApplyOutOfSyncOnly=true
+          - PrunePropagationPolicy=foreground
