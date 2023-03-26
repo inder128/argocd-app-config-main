@@ -16,7 +16,7 @@ spec:
     metadata:
       name: 'apply-rum-proxy--argocd-application--{{name}}'
     spec:
-      project: apply-rum-proxy
+      project: argo-cd-applications
       source:
         repoURL: https://github.com/inder128/argocd-app-config-main.git
         targetRevision: main
@@ -26,7 +26,7 @@ spec:
             - values-{{name}}.yaml
       destination:
         name: '{{name}}'
-        namespace: 'apply-rum-proxy--prod'
+        namespace: ''
       syncPolicy:
         automated:
           prune: true
