@@ -1,1 +1,30 @@
-
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: indeedapply-hpa-policy-argocd-applicationset
+spec:
+  generators:
+    - list:
+        elements:
+          - app: apply-rum-proxy
+  template:
+    metadata:
+      name: '{{app}}-hpa-policy-argocd-application'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/inder128/argocd-app-config-main.git'
+        path: xyz
+        targetRevision: main
+      destination:
+        namespace: default
+        name: in-cluster
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - PrunePropagationPolicy=foreground
+          
+          
