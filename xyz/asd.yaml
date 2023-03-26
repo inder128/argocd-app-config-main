@@ -4,12 +4,10 @@ metadata:
   name: indeedapply-hpa-policy-argocd-applicationset
 spec:
   generators:
-    - list:
-        elements:
-          - app: apply-rum-proxy
+    - clusters: {}
   template:
     metadata:
-      name: '{{app}}-hpa-policy-argocd-application'
+      name: '{{name}}-hpa-policy-argocd-application'
     spec:
       project: default
       source:
