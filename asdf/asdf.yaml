@@ -23,7 +23,7 @@ spec:
         path: charts/hpa-policy
       destination:
         name: in-cluster
-        namespace: argo-cd-general
+        namespace: default
       syncPolicy:
         automated:
           prune: true
