@@ -26,7 +26,7 @@ spec:
             - values-{{name}}.yaml
       destination:
         name: '{{name}}'
-        namespace: ''
+        namespace: 'argo-cd-general'
       syncPolicy:
         automated:
           prune: true
