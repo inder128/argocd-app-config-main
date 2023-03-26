@@ -16,7 +16,7 @@ spec:
       source:
         repoURL: https://github.com/inder128/argocd-app-config-main.git
         targetRevision: main
-        path: charts/hpa-policy
+        path: abc
       destination:
         server: '{{url}}'
         namespace: default
