@@ -15,8 +15,8 @@ spec:
       project: argo-cd-applications
       source:
         repoURL: https://github.com/inder128/argocd-app-config-main.git
-        targetRevision: master
-        path: charts/hpa-policys
+        targetRevision: main
+        path: charts/hpa-policy
       destination:
         name: in-cluster
         namespace: argo-cd-general
