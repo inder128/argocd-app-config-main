@@ -15,7 +15,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/inder128/argocd-app-config-main.git
-        targetRevision: HEAD
+        targetRevision: main
         path: abc
       destination:
         server: '{{url}}'
