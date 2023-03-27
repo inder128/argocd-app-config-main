@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: '{{.Values.app}}-{{.Values.deploymentgroup}}--hpa-policy'
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: cluster.indeed.com/name
+              operator: "In"
+              values:
+                - awscmhqa3
+        values:
+          env: '{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
+  template:
+    metadata:
+      name: '{{.Values.app}}-{{.Values.deploymentgroup}}-{{"{{"}}name{{"}}"}}--hpa-policy'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/inder128/argo-cd.git
+        targetRevision: master
+        path: applicationset/examples/charts/hpa-policy
+        helm:
+          valueFiles:
+            - 'values-{{.Values.app}}.yaml'
+          values: |
+            app: {{.Values.app}}
+            deploymentgroup: {{.Values.deploymentgroup}}
+            cluster: {{"{{"}}name{{"}}"}}
+      destination:
+        name: '{{"{{"}}name{{"}}"}}'
+        namespace: '{{.Values.app}}--{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
+      syncPolicy:
+        automated:
+          prune: true
+
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - PrunePropagationPolicy=foreground
