@@ -1,0 +1,8 @@
+deafault:
+  awscmhqa3:
+    minReplicas: 1
+    maxReplicas: 10
+    scaleUp:
+      pods: 3
+    scaleDown:
+      pods: 1

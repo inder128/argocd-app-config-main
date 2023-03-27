@@ -1,21 +1,23 @@
-{{- $xyz := .Values.app -}}
+{{- $app := .Values.app -}}
+{{- $deploymentgroup := .Values.deploymentgroup -}}
+{{- $cluster := .Values.cluster -}}
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: 'indeedapply.{{.Values.app}}.{{.Values.deploymentgroup}}'
+  name: 'indeedapply.{{$app}}.{{$deploymentgroup}}'
   labels:
-    apps.indeed.com/deployment-group-name: {{.Values.deploymentgroup}}
+    apps.indeed.com/deployment-group-name: {{$deploymentgroup}}
     apps.indeed.com/product-group: indeedapply
-    apps.indeed.com/project: {{.Values.app}}
+    apps.indeed.com/project: {{$app}}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: 'indeedapply.{{.Values.app}}.{{.Values.deploymentgroup}}'
+    name: 'indeedapply.{{$app}}.{{$deploymentgroup}}'
 
-  minReplicas: '{{index .Values "{{.Values.deploymentgroup}}" "{{.Values.cluster}}" "minReplicas"}}'
-  maxReplicas: '{{.Values.{{.Values.deploymentgroup}}.{{.Values.cluster}}.maxReplicas}}'
+  minReplicas: {{index .Values $deploymentgroup $cluster "minReplicas"}}
+  maxReplicas: {{index .Values $deploymentgroup $cluster "maxReplicas"}}
 
   metrics:
     - type: Resource
@@ -32,7 +34,7 @@ spec:
           value: 25
           periodSeconds: 15
         - type: Pods
-          value: '{{.Values.{{.Values.deploymentgroup}}.{{.Values.cluster}}.scaleUp.pods}}'
+          value: {{index .Values $deploymentgroup $cluster "scaleUp" "pods"}}
           periodSeconds: 15
       selectPolicy: Max
       stabilizationWindowSeconds: 0
@@ -40,6 +42,6 @@ spec:
     scaleDown:
       policies:
         - type: Pods
-          value: '{{.Values.{{.Values.deploymentgroup}}.{{.Values.cluster}}.scaleDown.pods}}'
+          value: {{index .Values $deploymentgroup $cluster "scaleDown" "pods" }}
           periodSeconds: 300
       stabilizationWindowSeconds: 600
