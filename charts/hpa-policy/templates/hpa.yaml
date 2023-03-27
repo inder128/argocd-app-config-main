@@ -1,3 +1,5 @@
+{{- $xyz := .Values.app -}}
+---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -12,7 +14,7 @@ spec:
     kind: Deployment
     name: 'indeedapply.{{.Values.app}}.{{.Values.deploymentgroup}}'
 
-  minReplicas: '{{.Values.{{.Values.deploymentgroup}}.{{.Values.cluster}}.minReplicas}}'
+  minReplicas: '{{index .Values "{{.Values.deploymentgroup}}" "{{.Values.cluster}}" "minReplicas"}}'
   maxReplicas: '{{.Values.{{.Values.deploymentgroup}}.{{.Values.cluster}}.maxReplicas}}'
 
   metrics:
