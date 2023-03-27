@@ -11,9 +11,7 @@ spec:
             - key: cluster.indeed.com/name
               operator: "In"
               values: 
-                {{- with .Values.clusters }}
-                  {{- toYaml . | nindent 4 }}
-                {{- end }}
+                {{.Values.clusters | toYaml . | nindent 10}}
         values:
           env: '{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
   template:
