@@ -19,6 +19,8 @@ spec:
         targetRevision: main
         path: charts/hpa-policy--appset
         helm:
+          valueFiles:
+            - values-{{app}}-{{deploymentgroup}}.yaml
           values: |
             app: {{app}}
             deploymentgroup: {{deploymentgroup}}
