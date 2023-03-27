@@ -3,8 +3,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: '{{.Values.app}}-{{.Values.deploymentgroup}}--hpa-policy'
-  labels:
-    asdf: {{index .Values "apply-rum-proxy" "deafult" | toYaml | nindent 2}}
 spec:
   generators:
     - clusters:
@@ -13,7 +11,7 @@ spec:
             - key: cluster.indeed.com/name
               operator: "In"
               values:
-                - awscmhqa3
+                {{index .Values "apply-rum-proxy" "deafult" | toYaml | nindent 2}}
         values:
           env: '{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
   template:
