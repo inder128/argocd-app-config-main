@@ -4,7 +4,7 @@ kind: ApplicationSet
 metadata:
   name: '{{.Values.app}}-{{.Values.deploymentgroup}}--hpa-policy'
   labels:
-    asdf: '{{index .Values "apply-rum-proxy" "deafult" | toYaml | nindent 2}}'
+    asdf: {{index .Values "apply-rum-proxy" "deafult" | toYaml | nindent 2}}
 spec:
   generators:
     - clusters:
