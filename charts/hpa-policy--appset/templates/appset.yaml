@@ -10,7 +10,8 @@ spec:
           matchExpressions:
             - key: cluster.indeed.com/name
               operator: "In"
-              values: ["awscmhqa3"]
+              values:
+                {{- toYaml $.Values.clusters | nindent 4 }}
         values:
           env: '{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
   template:
