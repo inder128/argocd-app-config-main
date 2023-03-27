@@ -11,7 +11,7 @@ spec:
             - key: cluster.indeed.com/name
               operator: "In"
               values: 
-                - awscmhqa3
+                {{- .Values.clusters | toYaml | nindent 10}}
         values:
           env: '{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
   template:
