@@ -1,4 +1,4 @@
-deafault:
+deafult:
   awscmhqa3:
     minReplicas: 1
     maxReplicas: 10
