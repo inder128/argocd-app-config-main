@@ -20,9 +20,9 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/inder128/argo-cd.git
-        targetRevision: master
-        path: applicationset/examples/charts/hpa-policy
+        repoURL: https://github.com/inder128/argocd-app-config-main.git
+        targetRevision: main
+        path: charts/hpa-policy
         helm:
           valueFiles:
             - 'values-{{.Values.app}}.yaml'
