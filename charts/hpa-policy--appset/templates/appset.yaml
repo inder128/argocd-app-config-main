@@ -10,8 +10,7 @@ spec:
           matchExpressions:
             - key: cluster.indeed.com/name
               operator: "In"
-              values:
-                '{{index .Values "apply-rum-proxy" "deafult" | toYaml | indent 10}}'
+              values: ["awscmhqa3"]
         values:
           env: '{{"{{"}}metadata.labels.cluster.indeed.com/env{{"}}"}}'
   template:
