@@ -1,1 +1,3 @@
-clusters: ["awscmhqa3", "awscmhqa2"]
+clusters: 
+  - "awscmhqa3"
+  - "awscmhqa2"
