@@ -1,3 +1,5 @@
 apply-rum-proxy:
   deafult: 
     - awscmhqa3
+    - awscmhqa2
+
