@@ -32,6 +32,7 @@ spec:
             app: {{.Values.app}}
             deploymentgroup: {{.Values.deploymentgroup}}
             cluster: {{"{{"}}name{{"}}"}}
+            {{.Values | toYaml}}
       destination:
         name: '{{"{{"}}name{{"}}"}}'
         namespace: '{{.Values.app}}--{{"{{"}}values.env{{"}}"}}'
