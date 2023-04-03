@@ -29,8 +29,6 @@ spec:
         path: charts/hpa-policy
         helm:
           values: |
-            app: {{.Values.app}}
-            deploymentgroup: {{.Values.deploymentgroup}}
             cluster: {{"{{"}}name{{"}}"}}
             {{.Values | toYaml | nindent 12}}
       destination:
