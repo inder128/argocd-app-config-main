@@ -14,7 +14,7 @@ spec:
       name: '{{app}}-{{deploymentgroup}}--hpa-policy'
     spec:
       project: default
-      source:
+      sources:
         - repoURL: https://github.com/inder128/argocd-app-config-main.git
           targetRevision: main
           path: charts/hpa-policy--appset
