@@ -1,4 +1,4 @@
-deafult:
+in-cluster:
   awscmhqa3:
     minReplicas: 1
     maxReplicas: 11
