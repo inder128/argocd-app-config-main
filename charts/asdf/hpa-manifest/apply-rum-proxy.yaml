@@ -1,5 +1,5 @@
-in-cluster:
-  awscmhqa3:
+deafult:
+  in-cluster:
     minReplicas: 1
     maxReplicas: 11
     scaleUp:
